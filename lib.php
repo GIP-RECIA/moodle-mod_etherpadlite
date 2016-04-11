@@ -54,9 +54,16 @@ function etherpadlite_add_instance(stdClass $etherpadlite, mod_etherpadlite_mod_
 	$config = get_config("etherpadlite");
 	// php.ini separator.output auf '&' setzen
 	$separator = ini_get('arg_separator.output');
-    ini_set('arg_separator.output', '&');
+	ini_set('arg_separator.output', '&');
 
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	//ADAPTATION GIP RECIA
+	//===========================ANCIEN CODE======================================
+	//$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	//==========================NOUVEAU CODE======================================
+	 $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url.'/';
+
+	 $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');	
+	//FIN ADAPTATION RECIA
 
 	try {
 		$createGroup = $instance->createGroup();
@@ -136,7 +143,17 @@ function etherpadlite_delete_instance($id) {
     ini_set('arg_separator.output', '&');
 
     $config = get_config("etherpadlite");
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	
+
+	        //ADAPTATION GIP RECIA
+        //===========================ANCIEN CODE======================================
+        //$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+        //==========================NOUVEAU CODE======================================
+         $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url.'/';
+
+         $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
+        //FIN ADAPTATION RECIA
+
 
 	$padID = $etherpadlite->uri;
 	$groupID = explode('$', $padID);

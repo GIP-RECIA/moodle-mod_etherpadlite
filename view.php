@@ -69,6 +69,16 @@ $domain = $config->url;
 $padId = $etherpadlite->uri;
 $fullurl = "domain.tld";
 
+
+// ADAPTATION GIP RECIA : nouvelle instruction
+//===========================================================================
+
+
+$domain = 'https://'. $_SERVER['SERVER_NAME'].$config->url."/";
+
+//===========================================================================
+// FIN ADAPTATION AU RECIA
+
 // make a new intance from the etherpadlite client
 $instance = new EtherpadLiteClient($config->apikey,$domain.'api');
 
@@ -119,10 +129,24 @@ catch (Exception $e) {
 }
 $sessionID = $sessionID->sessionID;
 
-// if we reach the etherpadlite server over https, then the cookie should only be delivered over ssl
-$ssl = (stripos($config->url, 'https://')===0)?true:false;
 
-setcookie("sessionID",$sessionID,$validUntil,'/',$config->cookiedomain, $ssl); // Set a cookie
+//MODIFICATION GIP RECIA
+//=========================================ANCIEN CODE==========================================
+// if we reach the etherpadlite server over https, then the cookie should only be delivered over ssl
+//$ssl = (stripos($config->url, 'https://')===0)?true:false;
+//=========================================NOUVEAU CODE=========================================
+$ssl = true;
+//FIN MODIFICATION
+
+
+// MODIFICATION GIP RECIA
+//============================= ANCIEN CODE =========================================
+//setcookie("sessionID",$sessionID,$validUntil,'/',$config->cookiedomain, $ssl); // Set a cookie
+//============================== NOUVEAU CODE ========================================
+setcookie("sessionID",$sessionID,$validUntil,'/',$_SERVER['SERVER_NAME'], $ssl);
+// FIN MODIFICATION GIP RECIA
+
+
 
 // seperator.output wieder zur�cksetzen
 ini_set('arg_separator.output', $separator);
@@ -135,6 +159,8 @@ $context = context_module::instance($cm->id);
 $PAGE->set_title(get_string('modulename', 'mod_etherpadlite').': '.format_string($etherpadlite->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
+
+
 
 echo $OUTPUT->header();
 
