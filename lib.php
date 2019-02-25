@@ -52,8 +52,18 @@ function etherpadlite_add_instance(stdClass $etherpadlite, mod_etherpadlite_mod_
 
 	global $DB;
 	$config = get_config("etherpadlite");
+	// php.ini separator.output auf '&' setzen
+	$separator = ini_get('arg_separator.output');
+    ini_set('arg_separator.output', '&');
 
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	//ADAPTATION GIP RECIA
+	//===========================ANCIEN CODE======================================
+	//$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	//==========================NOUVEAU CODE======================================
+	 $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url.'/';
+
+	 $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');	
+	//FIN ADAPTATION RECIA
 
 	try {
 		$createGroup = $instance->createGroup();
@@ -78,6 +88,9 @@ function etherpadlite_add_instance(stdClass $etherpadlite, mod_etherpadlite_mod_
 	$etherpadlite->uri = $padID;
 
 	$etherpadlite->timecreated = time();
+
+	// seperator.output wieder zur�cksetzen
+	ini_set('arg_separator.output', $separator);
 
     return $DB->insert_record('etherpadlite', $etherpadlite);
 }
@@ -125,23 +138,36 @@ function etherpadlite_delete_instance($id) {
     $result = true;
 
     # Delete any dependent records here #
+	// php.ini separator.output auf '&' setzen
+	$separator = ini_get('arg_separator.output');
+    ini_set('arg_separator.output', '&');
 
     $config = get_config("etherpadlite");
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	
+
+	        //ADAPTATION GIP RECIA
+        //===========================ANCIEN CODE======================================
+        //$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+        //==========================NOUVEAU CODE======================================
+         $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url.'/';
+
+         $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
+        //FIN ADAPTATION RECIA
+
 
 	$padID = $etherpadlite->uri;
 	$groupID = explode('$', $padID);
 	$groupID = $groupID[0];
 
-    if (!$instance->deletePad($padID)) {
-        // Ignore it and go on.
-        // TODO: Add log for later reviewing.
-    }
+	try {
+  		$instance->deleteGroup($groupID);
+	} catch (Exception $e) {
+ 		echo "\n\ndeleteGroupFailed: ". $e->getMessage();
+ 		return false;
+	}
 
-    if (!$instance->deleteGroup($groupID)) {
-        // Ignore it and go on.
-        // TODO: Add log for later reviewing.
-    }
+	// seperator.output wieder zur�cksetzen
+	ini_set('arg_separator.output', $separator);
 
     if (! $DB->delete_records('etherpadlite', array('id'=>$etherpadlite->id))) {
         $result = false;
