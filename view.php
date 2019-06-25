@@ -65,16 +65,6 @@ $domain = $config->url;
 $padId = $etherpadlite->uri;
 $fullurl = "domain.tld";
 
-
-// ADAPTATION GIP RECIA : nouvelle instruction
-//===========================================================================
-
-
-$domain = 'https://'. $_SERVER['SERVER_NAME'].$config->url."/";
-
-//===========================================================================
-// FIN ADAPTATION AU RECIA
-
 // make a new intance from the etherpadlite client
 $instance = new EtherpadLiteClient($config->apikey,$domain.'api');
 
