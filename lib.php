@@ -61,7 +61,6 @@ function etherpadlite_add_instance(stdClass $etherpadlite, mod_etherpadlite_mod_
 	//$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
 	//==========================NOUVEAU CODE======================================
 	 $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url;
-
 	 $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');	
 	//FIN ADAPTATION RECIA
 
@@ -150,7 +149,6 @@ function etherpadlite_delete_instance($id) {
         //$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
         //==========================NOUVEAU CODE======================================
          $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url;
-
          $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
         //FIN ADAPTATION RECIA
 

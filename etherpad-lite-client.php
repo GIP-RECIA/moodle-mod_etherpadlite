@@ -47,12 +47,7 @@ class EtherpadLiteClient {
     $this->apiKey  = $apiKey;
 
     if (isset($baseUrl)){
-// MODIFICATION GIP RECIA
-//============================= ANCIEN CODE =========================================
-//      $this->baseUrl = $baseUrl;
-//============================== NOUVEAU CODE ========================================
-      $this->baseUrl = 'https://'. $_SERVER['SERVER_NAME'].$baseUrl;
-// FIN MODIFICATION GIP RECIA      
+      $this->baseUrl = $baseUrl;
 
     }
     if (!filter_var($this->baseUrl, FILTER_VALIDATE_URL)){
