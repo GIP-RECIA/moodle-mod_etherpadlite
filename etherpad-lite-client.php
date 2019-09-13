@@ -47,7 +47,11 @@ class EtherpadLiteClient {
     $this->apiKey  = $apiKey;
 
     if (isset($baseUrl)){
-      $this->baseUrl = $baseUrl;
+	    if (stripos($baseUrl,'http') === 0){
+		    $this->baseUrl = $baseUrl;
+	    }else{
+		    $this->baseUrl = 'https://'. $_SERVER['SERVER_NAME'].$baseUrl;
+	    }
 
     }
     if (!filter_var($this->baseUrl, FILTER_VALIDATE_URL)){

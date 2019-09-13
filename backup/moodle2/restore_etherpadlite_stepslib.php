@@ -51,13 +51,7 @@ class restore_etherpadlite_activity_structure_step extends restore_activity_stru
         $oldid = $data->id;
         $data->course = $this->get_courseid();
 
-        //ADAPTATION GIP RECIA
-        //===========================ANCIEN CODE======================================
-        //$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
-	//==========================NOUVEAU CODE======================================
-         $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url;
-         $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
-        //FIN ADAPTATION RECIA
+        $instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
 
         try {
             $createGroup = $instance->createGroup();
@@ -92,25 +86,13 @@ class restore_etherpadlite_activity_structure_step extends restore_activity_stru
         global $DB;
         $config = get_config("etherpadlite");
         $data = (object)$data;
-	//ADAPTATION GIP RECIA
-        //===========================ANCIEN CODE======================================
-	//$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
-	//==========================NOUVEAU CODE======================================
-         $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url;
-         $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
-        //FIN ADAPTATION RECIA
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
 
         $newid = $this->get_new_parentid('etherpadlite');
         $etherpadlite = $DB->get_record('etherpadlite', array('id'=>$newid));
         $padID = $etherpadlite->uri;
 
-        //ADAPTATION GIP RECIA
-        //===========================ANCIEN CODE======================================
-	//$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
-	////==========================NOUVEAU CODE======================================
-         $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url;
-         $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
-        //FIN ADAPTATION RECIA
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
 
         try {
             $instance->setText($padID, $data->text);

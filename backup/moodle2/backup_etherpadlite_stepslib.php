@@ -33,13 +33,7 @@ class backup_etherpadlite_activity_structure_step extends backup_activity_struct
 
         $config = get_config("etherpadlite");
 
-        //ADAPTATION GIP RECIA
-        //===========================ANCIEN CODE======================================
-	//$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
-	//==========================NOUVEAU CODE======================================
-         $urlEtherpad = 'https://'. $_SERVER['SERVER_NAME'].$config->url;
-         $instance = new EtherpadLiteClient($config->apikey,$urlEtherpad.'api');
-        //FIN ADAPTATION RECIA
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
 
         // To know if we are including userinfo
         $userinfo = $this->get_setting_value('userinfo');
