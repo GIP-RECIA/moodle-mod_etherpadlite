@@ -51,7 +51,7 @@ class restore_etherpadlite_activity_structure_step extends restore_activity_stru
         $oldid = $data->id;
         $data->course = $this->get_courseid();
 
-        $instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+        $instance = new EtherpadLiteClient($config->apikey,$config->url.'api',$config->urlcli.'api');
 
         try {
             $createGroup = $instance->createGroup();
@@ -86,13 +86,13 @@ class restore_etherpadlite_activity_structure_step extends restore_activity_stru
         global $DB;
         $config = get_config("etherpadlite");
         $data = (object)$data;
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api',$config->urlcli.'api');
 
         $newid = $this->get_new_parentid('etherpadlite');
         $etherpadlite = $DB->get_record('etherpadlite', array('id'=>$newid));
         $padID = $etherpadlite->uri;
 
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api',$config->urlcli.'api');
 
         try {
             $instance->setText($padID, $data->text);

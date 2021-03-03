@@ -40,7 +40,7 @@ class EtherpadLiteClient {
   protected $baseUrl = "http://localhost:9001/api";
   protected $curl; // Use the moodle curl class.
 
-  public function __construct($apiKey, $baseUrl = null){
+  public function __construct($apiKey, $baseUrl = null, $baseUrlCli = null){
     if (strlen($apiKey) < 1){
       throw new InvalidArgumentException("[{$apiKey}] is not a valid API key");
     }
@@ -49,9 +49,11 @@ class EtherpadLiteClient {
     if (isset($baseUrl)){
 	    if (stripos($baseUrl,'http') === 0){
 		    $this->baseUrl = $baseUrl;
-	    }else{
+	    } else if (isset($_SERVER['SERVER_NAME'])) {
 		    $this->baseUrl = 'https://'. $_SERVER['SERVER_NAME'].$baseUrl;
-	    }
+	    } else {
+        $this->baseUrl = $baseUrlCli;
+      }
 
     }
     if (!filter_var($this->baseUrl, FILTER_VALIDATE_URL)){

@@ -28,6 +28,9 @@
 $settings->add(new admin_setting_configtext('etherpadlite/url', get_string('url', 'etherpadlite'),
 				   get_string('urldesc', 'etherpadlite'), 'https://myserver.mydomain.local/moodle/', PARAM_RAW,40));
 
+$settings->add(new admin_setting_configtext('etherpadlite/urlcli', get_string('urlcli', 'etherpadlite'),
+				   get_string('urlclidesc', 'etherpadlite'), 'https://myserver.mydomain.local/moodle/', PARAM_RAW,40));
+
 $settings->add(new admin_setting_configtext('etherpadlite/apikey', get_string('apikey', 'etherpadlite'),
 		           get_string('apikeydesc', 'etherpadlite'), 'Enter your API Key', PARAM_RAW,40));
 

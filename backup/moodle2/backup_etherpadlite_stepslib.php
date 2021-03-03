@@ -33,7 +33,7 @@ class backup_etherpadlite_activity_structure_step extends backup_activity_struct
 
         $config = get_config("etherpadlite");
 
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api',$config->urlcli.'api');
 
         // To know if we are including userinfo
         $userinfo = $this->get_setting_value('userinfo');

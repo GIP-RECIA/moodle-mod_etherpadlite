@@ -45,6 +45,9 @@ $string['etherpadlite:addinstance'] = 'Add new pad';
 $string['url'] = 'Server URL';
 $string['urldesc'] = 'This is the URL to your Etherpadlite server in the form: http[s]://host[:port]/[subDir/]';
 
+$string['urlcli'] = 'Server URL pour la cli';
+$string['urlclidesc'] = 'This is the URL to your Etherpadlite server in the form: http[s]://host[:port]/[subDir/]';
+    
 $string['padname'] = 'Padname for all instances';
 $string['padnamedesc'] = 'A general padname can be helpful, if you want to find all pads from this Moodle installation on your etherpadlite server. Pad groups are generated autmatically.';
 

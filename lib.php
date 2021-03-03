@@ -56,7 +56,7 @@ function etherpadlite_add_instance(stdClass $etherpadlite, mod_etherpadlite_mod_
 	$separator = ini_get('arg_separator.output');
     ini_set('arg_separator.output', '&');
 
-	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+	$instance = new EtherpadLiteClient($config->apikey,$config->url.'api',$config->urlcli.'api');
 
 	try {
 		$createGroup = $instance->createGroup();
@@ -137,7 +137,7 @@ function etherpadlite_delete_instance($id) {
 
     $config = get_config("etherpadlite");
 	
-        $instance = new EtherpadLiteClient($config->apikey,$config->url.'api');
+        $instance = new EtherpadLiteClient($config->apikey,$config->url.'api',$config->urlcli.'api');
 
 	$padID = $etherpadlite->uri;
 	$groupID = explode('$', $padID);
